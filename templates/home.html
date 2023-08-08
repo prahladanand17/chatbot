@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Chatbot</title>
+</head>
+<body>
+    <h2>Upload File Here</h2>
+    <input type="file" id="file">
+    <button id="upload">Upload</button>
+        <small id="status"></small>
+
+    <script>
+        const file = document.getElementById('file');
+        const upload = document.getElementById('upload');
+        const status = document.getElementById('status');
+
+        upload.addEventListener('click', () => {
+          upload_file();
+        })
+
+        async function upload_file() {
+          console.log('clicked the upload button!');
+                var fd = new FormData()
+                fd.append('file', file.files[0]);
+                const response = await fetch('http://127.0.0.1:8000/upload', {
+                  method: 'POST',
+                  body: fd
+                }); // returns a promise
+        
+                console.log(response);
+                window.location.href = "http://127.0.0.1:8000/chatwindow";
+        }
+    </script>
+</body>
+</html>
